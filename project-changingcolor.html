@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Background Color</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      transition: background-color 0.5s ease;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="button"] {
+      font-size: 1rem;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    input#start {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    input#stop {
+      background-color: #f44336;
+      color: white;
+    }
+
+    input[type="button"]:hover {
+      transform: scale(1.1);
+    }
+
+    input#start:hover {
+      background-color: #45a049;
+    }
+
+    input#stop:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Background Changing Color Every Second</h1>
+  <input id="start" type="button" value="Start">
+  <input id="stop" type="button" value="Stop">
+
+  <script>
+    function randomsColor() {
+      let hex = '0123456789ABCDEF';
+      let color = '#';
+      let randomNumber;
+      for (let i = 0; i < 6; i++) {
+        randomNumber = Math.floor(Math.random() * 16);
+        color += hex[randomNumber];
+      }
+      return color;
+    }
+
+    const startbutton = document.querySelector('#start');
+    const stopbutton = document.querySelector('#stop');
+    let intervalId;
+
+    startbutton.addEventListener('click', function () {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+      intervalId = setInterval(function () {
+        document.body.style.backgroundColor = randomsColor();
+      }, 1000);
+    });
+
+    stopbutton.addEventListener('click', function () {
+      clearInterval(intervalId);
+      intervalId = null;
+    });
+  </script>
+</body>
+</html>
